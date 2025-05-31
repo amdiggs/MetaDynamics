@@ -70,7 +70,7 @@ public:
     IonInfo iInfo;
     CoordsType g_coords;
     float time = 0.;
-    float dt = 0.001;
+    float dt = 0.1;
 
 };
 

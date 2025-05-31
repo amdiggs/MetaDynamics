@@ -53,7 +53,7 @@ void IonInfo::Init()
     this->m_coordsType = e->g_coords;
     m_species = (SpeciesInfo**)malloc(sizeof(SpeciesInfo*));
     m_species[0] = (SpeciesInfo*)malloc(sizeof(SpeciesInfo));
-    AMD::Vec3 tmp[4] = {AMD::Vec3(0.0,0.0,0.0), AMD::Vec3(1.6,0.0,0.0),AMD::Vec3(0.0,1.6,0.0), AMD::Vec3(1.13,1.13,0.0)};
+    AMD::Vec3 tmp[4] = {AMD::Vec3(0.0,0.0,0.0), AMD::Vec3(0.4,0.0,0.0),AMD::Vec3(0.0,0.8,0.0), AMD::Vec3(-0.8,-0.8,0.0)};
     m_species[0]->Init("O", 0.65,15.998,tmp,4);
     num_sp = 1;
 
@@ -62,7 +62,7 @@ void IonInfo::Init()
 	for(int j = 0; j < spec->num_typ; j++){
 	    unsigned int f_id = i*spec->num_typ + j;
 	    forces[f_id] = 0.;
-	    velocities[f_id] = 0.1f*urf();
+	    velocities[f_id] = 0.; //0.1f*urf();
 	}
     }
     init = true;
@@ -86,7 +86,10 @@ unsigned int IonInfo::Get_SP_Indx(const char* type)
 
 
 void IonInfo::print(){
-    printf("Ion Print\n");
+    for(int i = 0; i < 4; i++){
+	AMD::Vec3 f = forces[i]; 
+	printf("Force on Atom %d: (%.3f, %.3f,%.3f)\n",i,f.x,f.y,f.z);
+    }
 }
 
 
@@ -97,10 +100,15 @@ void IonInfo::Update_Ions()
 	SpeciesInfo* spec = m_species[i];
 	for(int j = 0; j < spec->num_typ; j++){
 	    unsigned int f_id = i*spec->num_typ + j;
-	    AMD::Vec3 a = (1./spec->mass)*forces[f_id];
+	    AMD::Vec3 a = 1.0*forces[f_id];
+	    //a.print();
 	    velocities[f_id] += dt*a;
 	    AMD::Vec3 dx = dt*velocities[f_id];
+	    printf("######Atom %d########\n",j);
+	    spec->atpos[j].print();
 	    spec->atpos[j] += dx;
+	    dx.print();
+	    spec->atpos[j].print();
 	}
     }
     e->time+=dt;
