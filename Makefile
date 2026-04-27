@@ -1,5 +1,5 @@
 CXX = clang++
-CXXFLAGS = -g -Wall -std=c++17
+CXXFLAGS = -glldb -Wall -std=c++17
 TARGET = meta-dyn
 SOURCES = main.cpp MyVec.cpp jdftx.cpp MetaDyn.cpp
 LIBS = OpenCL

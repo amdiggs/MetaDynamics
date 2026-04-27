@@ -95,14 +95,14 @@ int main(int argc, const char * argv[])
     }
     Meta_PES mp;
     mp.Init(0.0, 7.0, 0.01, 0, 0, 0, 1);
-    for(int i = 0; i<10; i++){
+    for(int i = 0; i<100; i++){
 	Comp_LJ();
 	//mp.Comp_Force();
 	e->iInfo.Update_Ions();
 	if(!(i%10)){
 	    //Print_Pos(spec, init_pos);
-	    e->iInfo.print();
-	    //Print_Dist(spec);
+	    //e->iInfo.print();
+	    Print_Dist(spec);
 	}
     }
 

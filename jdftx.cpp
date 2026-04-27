@@ -104,11 +104,11 @@ void IonInfo::Update_Ions()
 	    //a.print();
 	    velocities[f_id] += dt*a;
 	    AMD::Vec3 dx = dt*velocities[f_id];
-	    printf("######Atom %d########\n",j);
-	    spec->atpos[j].print();
+	    //printf("######Atom %d########\n",j);
+	    //spec->atpos[j].print();
 	    spec->atpos[j] += dx;
-	    dx.print();
-	    spec->atpos[j].print();
+	    //dx.print();
+	    //spec->atpos[j].print();
 	}
     }
     e->time+=dt;
